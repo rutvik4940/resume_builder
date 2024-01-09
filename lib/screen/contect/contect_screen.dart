@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../utils/global.dart';
 
@@ -11,53 +14,75 @@ class ContectScreen extends StatefulWidget {
 }
 
 class _ContectScreenState extends State<ContectScreen> {
+  String path="";
   int contactindex=0;
+
   TextEditingController txtName = TextEditingController();
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtMobile = TextEditingController();
   TextEditingController txtAddress = TextEditingController();
   GlobalKey<FormState>key = GlobalKey<FormState>();
 
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-        appBar: AppBar(
-        leading: const Icon(Icons.arrow_back_ios_new),
-          centerTitle: true,
-           title: const Text("Resume Workspace"),
-            toolbarHeight: 200,
-               flexibleSpace: Align(
-                  alignment: Alignment.bottomCenter,
-                   child:  Row(
+        child: Form(
+          key: key,
+          child: Scaffold(
+          appBar: AppBar(
+          leading: const Icon(Icons.arrow_back_ios_new),
+            centerTitle: true,
+             title: const Text("Resume Workspace"),
+              toolbarHeight: 200,
+                 flexibleSpace: Align(
+                    alignment: Alignment.bottomCenter,
+                  child:  Row(
                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                      children: [
-                       InkWell(
-                         onTap: (){
-                           contactindex=0;
-                         },
-                           child: Text("Contact",style: TextStyle(fontSize: 18,color: Colors.white))),
-                       InkWell(
-                         onTap: (){
-                           contactindex=1;
-                         },
-                           child: Text("Photo",style: TextStyle(fontSize: 18,color: Colors.white))),
+                       appbar(
+                           width:  contactindex== 0 ? 3 : 0.1, title: "Contact", indexed: 0),
+                       appbar(width: contactindex == 1 ? 3 : 0.1, title: "Image", indexed: 1),
                      ],
                    ),
-
                  ),
-                            ),
-          body:Row(
-            children:[
-              contectPage(title: "contect"),
-            photoPage(),
-      ]
-    ),
-    ),
+          ),
+            body: IndexedStack(
+                index:contactindex ,
+                children: [
+                  contectPage(),
+                  photoPage(),
+            ]
+    )
+        )
+    )
     );
-
   }
-  Widget contectPage({required String title,}){
+  Widget appbar(
+      {required String title, required double width, required int indexed}) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          contactindex = indexed;
+        });
+      },
+      child: Container(
+        width: MediaQuery.sizeOf(context).width * 0.30,
+        margin: const EdgeInsets.all(2),
+        padding: const EdgeInsets.only(left: 35),
+        decoration: BoxDecoration(
+            border:
+            Border(bottom: BorderSide(width: width, color: Colors.yellow))),
+        child: Text(
+          title,
+          style: const TextStyle(
+              color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  Widget contectPage(){
     return SingleChildScrollView(
       child: Align(
         alignment: Alignment.topCenter,
@@ -181,23 +206,37 @@ class _ContectScreenState extends State<ContectScreen> {
   Widget photoPage(){
     return IndexedStack(
       children:[
-        Align(
-        alignment: Alignment.topCenter,
-        child: Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.only(top: 20),
+        Container(
+          margin: const EdgeInsets.all( 50),
           height: MediaQuery.sizeOf(context).height*0.30,
           width: MediaQuery.sizeOf(context).width*0.85,
-          color: Colors.white,
-          child:  const Stack(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+              spreadRadius: 5,
+              blurRadius: 5,
+              color: Colors.white,
+          )
+            ]
+          ),
+          child:Stack(
             alignment: Alignment.center,
             children: [
-              CircleAvatar(radius: 60,backgroundColor: Colors.black26),
-              Align(alignment: Alignment(0.3,0.3),child: Icon(Icons.add_circle_outlined,color: Colors.blueAccent,))
+              CircleAvatar(radius: 60,backgroundColor: Colors.black26,
+                  backgroundImage: FileImage(File(path))),
+              Align(alignment: Alignment(0.3,0.3),
+              child: IconButton(
+                onPressed: ()async{
+                  ImagePicker piker=ImagePicker();
+                  XFile? xfile=await piker.pickImage(source: ImageSource.camera);
+                  setState(() {
+                    path=xfile!.path;
+                  });
+                },
+                icon: Icon(Icons.add_circle_outlined,color: Colors.blueAccent,))),
             ],
           ),
         ),
-      ),
     ]
     );
   }

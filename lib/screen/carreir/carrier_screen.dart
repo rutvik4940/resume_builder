@@ -21,74 +21,54 @@ class _CarrierScreenState extends State<CarrierScreen> {
             centerTitle: true,
           ),
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  margin: EdgeInsets.only(left: 40,top: 20),
-                  child: Text("Carrier Objective",style: TextStyle(fontSize: 20,color: Colors.blue)),
-        ),
-                SizedBox(height: 10,),
-                Container(
-                  height: 130,
-                  width: double.infinity,
-                  margin: EdgeInsets.only(left: 40,right: 40),
-                  padding: EdgeInsets.only(left: 20),
-                  decoration: (
-                  BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.black26,
-                  )
-                  ),
-                  child: TextFormField(
+            child: Padding(
+              padding: EdgeInsets.all(25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Carrier Objective",style: TextStyle(fontSize: 20,color: Colors.blue)),
+                  SizedBox(height: 10,),
+                  TextFormField(
                     validator: (value) {
                       if(value!.isEmpty)
                       {
-                        return "Address is required";
+                        return "Descripation is required";
                       }
                       return null;
                     },
                     onFieldSubmitted: (value) {
+                      String carrier=value!;
+
                     },
                     maxLines: 5,
-                    decoration: InputDecoration(
-                      label: Text("Descripation"),
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(borderSide: BorderSide(width: 2),),
+                    hintText: ("Descripation"),
                     ),
                   ),
-                ),
-                SizedBox(height: 10,),
-                Container(
-                  alignment: Alignment.topLeft,
-                  margin: EdgeInsets.only(left: 40,top: 20),
-                  child: Text("Current Designation (Expreienced Candidate)",style: TextStyle(fontSize: 20,color: Colors.blue)),
-                ),
-                SizedBox(height: 10,),
-                Container(
-                  height: 80,
-                  width: double.infinity,
-                  margin: EdgeInsets.only(left: 40,right: 40),
-                  padding: EdgeInsets.only(left: 20),
-                  decoration: (
-                      BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.black26,
-                      )
-                  ),
-                  child: TextFormField(
+                  SizedBox(height: 30,),
+                  Text("Current Designation (Expreienced Candidate)",style: TextStyle(fontSize: 20,color: Colors.blue)),
+                  SizedBox(height: 10,),
+                  TextFormField(
                     validator: (value) {
                       if(value!.isEmpty)
                       {
-                        return "Address is required";
+                        return "Software Engineer is required";
                       }
                       return null;
                     },
-                    maxLines: 4,
+                    onFieldSubmitted: (value) {
+                      String designation=value!;
+
+                    },
+                    maxLines: 2,
                     decoration: InputDecoration(
-                      label: Text("Software Enginner"),
+                      border: OutlineInputBorder(borderSide: BorderSide(width: 2)),
+                       hintText: ("Software Enginner"),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         )
