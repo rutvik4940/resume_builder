@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
             flexibleSpace: Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: 40,
+              padding: EdgeInsets.only(bottom: 10),
                 child: const Text(
                     "Build options", style: TextStyle(fontSize: 18,color: Colors.white),
               ),
@@ -32,18 +32,17 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 const SizedBox(height: 10,),
-                resume(title: "Contact info", Images: Icons.contacts,Route: 'contest' ),
-                resume(title: " Carrier Objective", Images: Icons.shopping_bag_rounded, Route: 'contact'),
-                resume(title: "Personal Details", Images: Icons.person,Route: 'contact'),
-                resume(title: "Eduction", Images: Icons.book,Route: 'contact'),
-                resume(title: "Experiences", Images: Icons.person_outline,Route: 'contact'),
-                resume(title: " Technical Skills", Images: Icons.bookmark_remove_outlined,Route: 'contact'),
-                resume(title: "Interest/Hobbies", Images: Icons.book_rounded,Route: 'contact'),
-                resume(title: "Projects", Images: Icons.paste_rounded,Route: 'contact'),
-                resume(title: "Achievements", Images: Icons.gas_meter_outlined,Route: 'contact'),
-                resume(title: "References", Images: Icons.handshake_outlined,Route: 'contact'),
-                resume(title: "Declaration", Images: Icons.border_color_outlined,Route: 'contact'),
-
+                resume(title: "Contact info", images: Icons.contacts,route: 'contact' ),
+                resume(title: " Carrier Objective", images: Icons.shopping_bag_rounded, route: 'carrier'),
+                resume(title: "Personal Details", images: Icons.person,route: 'personal'),
+                resume(title: "Eduction", images: Icons.book,route: 'eduction'),
+                resume(title: "Experiences", images: Icons.person_outline,route: 'experiences'),
+                resume(title: " Technical Skills", images: Icons.bookmark_remove_outlined,route: 'technical'),
+                resume(title: "Interest/Hobbies", images: Icons.book_rounded,route: 'interest'),
+                resume(title: "Projects", images: Icons.paste_rounded,route: 'project'),
+                resume(title: "Achievements", images: Icons.gas_meter_outlined,route: 'achievements'),
+                resume(title: "References", images: Icons.handshake_outlined,route: 'references'),
+                resume(title: "Declaration", images: Icons.border_color_outlined,route: 'declaration'),
 
               ],
             ),
@@ -52,27 +51,27 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget resume({required String title, required IconData Images,required String Route }) {
+  Widget resume({required String title, required IconData images,required String route }) {
     return
-      Container(
-        padding: const EdgeInsets.all(10),
-        decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.grey))
-        ),
-        child: InkWell(
+        InkWell(
           onTap: (){
-            Navigator.pushNamed(context, '$Route');
+            Navigator.pushNamed(context, '$route');
           },
-          child: Row(
-            children: [
-              Icon(Images,size: 25),
-              const SizedBox(width: 10,),
-              Text("$title", style: const TextStyle(fontSize: 18)),
-              const Spacer(),
-              const Icon(Icons.arrow_forward_ios_sharp)
-            ],
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+            border: Border(bottom: BorderSide(color: Colors.grey))
           ),
-        ),
+            child: Row(
+              children: [
+                Icon(images,size: 25),
+                const SizedBox(width: 10,),
+                Text("$title", style: const TextStyle(fontSize: 18)),
+                const Spacer(),
+                const Icon(Icons.arrow_forward_ios_sharp)
+              ],
+            ),
+          ),
       );
   }
 }
