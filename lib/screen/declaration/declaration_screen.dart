@@ -83,25 +83,21 @@ class _DeclarationScreenState extends State<DeclarationScreen> {
                         SizedBox(
                           height: 40,
                           width: 140,
-                          child: Expanded(
-                            child: TextFormField(
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    hintText: "DD/MM/YYYY"
-                                )
-                            ),
+                          child: TextFormField(
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: "DD/MM/YYYY"
+                              )
                           ),
                         ),
                         SizedBox(
                           height: 40,
                           width: 140,
-                          child: Expanded(
-                            child: TextFormField(
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    hintText: "Eg.Surat"
-                                )
-                            ),
+                          child: TextFormField(
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: "Eg.Surat"
+                              )
                           ),
                         ),
                       ],
